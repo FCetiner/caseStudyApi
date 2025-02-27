@@ -1,87 +1,76 @@
-Case Study API Test Automation
+Test Automation Framework (TestNG)
 
-Overview
+ Project Overview
 
-This is a backend API test automation framework developed using Java and TestNG. It is designed to automate API testing scenarios related to user account management.
+This is a Test Automation Framework built with Java, TestNG, and RestAssured for API testing. It includes structured test cases, data-driven testing, and automated reporting with ExtentReports.
 
-Tech Stack
+ Project Structure
 
-Java (JDK 11 or later)
+caseStudyApi/
+│-- src/
+│   ├── main/
+│   ├── test/
+│       ├── java/
+│           ├── basesetup/
+│           ├── runtest.account/
+│           ├── testdata.account/
+│           ├── tests.account/
+│           ├── utils/
+│           ├── package-info.java
+│       ├── resources/
+│           ├── account/
+│               ├── Login.json
+│               ├── register.json
+│-- target/
+│-- .gitignore
+│-- configuration.properties
+│-- pom.xml
+│-- testng.xml
 
-TestNG (for test execution)
+🛠️ Dependencies (pom.xml)
 
-RestAssured (for API testing)
+Ensure the following dependencies are included in pom.xml:
 
-Maven (for dependency management)
+<dependencies>
+    <!-- TestNG -->
+    <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>7.4.0</version>
+        <scope>test</scope>
+    </dependency>
 
-JSON (for test data management)
+    <!-- RestAssured -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>4.4.0</version>
+    </dependency>
 
-Project Structure
+    <!-- Extent Reports -->
+    <dependency>
+        <groupId>com.aventstack</groupId>
+        <artifactId>extentreports</artifactId>
+        <version>5.0.9</version>
+    </dependency>
+</dependencies>
 
-caseStudyApi
-│── src
-│   ├── main
-│   ├── test
-│   │   ├── java
-│   │   │   ├── basesetup      # Base setup for tests
-│   │   │   ├── runtest.account  # Runner classes for tests
-│   │   │   ├── testdata.account # Test data classes
-│   │   │   ├── tests.account    # Test cases implementation
-│   │   │   ├── utils            # Utility classes
-│   │   ├── resources
-│   │   │   ├── account
-│   │   │   │   ├── Login.json     # Test data for login
-│   │   │   │   ├── register.json  # Test data for registration
-│── target
-│── .gitignore
-│── configuration.properties
-│── pom.xml
+ Running Tests
 
-Installation & Setup
+Using IntelliJ IDEA
 
-Prerequisites
+Open the testng.xml file.
 
-Install Java (JDK 11+)
+Right-click and select Run 'testng.xml'.
 
-Install Maven
+Using Maven
 
-Install TestNG Plugin in your IDE (e.g., IntelliJ IDEA, Eclipse)
-
-Clone the Repository
-
-git clone <repository-url>
-cd caseStudyApi
-
-Install Dependencies
-
-mvn clean install
-
-Running Tests
-
-Run all tests using Maven
+Run the following command in the terminal:
 
 mvn test
 
-Run a specific test class
+ Test Execution Report
 
-mvn -Dtest=TestClassName test
+After test execution, an HTML report is generated in the test-output/ directory:
 
-Run tests using TestNG XML
-
-mvn test -Dsurefire.suiteXmlFiles=TestRunner.xml
-
-Test Data Management
-
-Test data for API requests is stored in JSON files inside resources/account/
-
-Update Login.json and register.json to modify test data
-
-Configuration
-
-Update configuration.properties to set environment variables, such as API base URL
-
-Reporting
-
-Test execution reports are generated under the target folder
-
-A detailed TestNG report can be accessed after execution
+Open test-output/ExtentReport.html in a browser to view the test results.
