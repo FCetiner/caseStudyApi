@@ -9,33 +9,28 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class ExtentManager extends BaseSetup {
+public  class ExtentManager extends BaseSetup {
     protected static ExtentReports extentReports;
     protected static ExtentTest extentTest;
     protected static ExtentSparkReporter extentSparkReporter;
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeSuite(alwaysRun = true)
     public void setUpTest() {
         extentReports = new ExtentReports();
 
-        // Raporun dosya yolunu belirle
         String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String filePath = System.getProperty("user.dir") + "/test-output/Report_" + date + ".html";
 
-        // Yeni ExtentSparkReporter kullanılıyor
         extentSparkReporter = new ExtentSparkReporter(filePath);
         extentReports.attachReporter(extentSparkReporter);
 
-        // Test ortam bilgilerini ekle
         extentReports.setSystemInfo("Environment", "QA");
-        extentReports.setSystemInfo("Browser", ConfigReader.getProperty("browser")); // Eğer ConfigReader yoksa kaldır
+        extentReports.setSystemInfo("Browser", ConfigReader.getProperty("browser"));
         extentReports.setSystemInfo("Automation Engineer", "QA Engineer");
 
         // Raporun görünümünü ayarla
@@ -57,7 +52,7 @@ public abstract class ExtentManager extends BaseSetup {
         }
     }
 
-    @AfterTest(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void tearDownTest() {
         extentReports.flush();
     }

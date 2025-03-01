@@ -2,25 +2,15 @@ package utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.github.javafaker.Faker;
-import io.restassured.path.xml.XmlPath;
-import io.restassured.response.Response;
-import org.apache.commons.lang3.RandomStringUtils;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.Normalizer;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
 public class ReusableMethods {
-
+    static ZonedDateTime dateTime;
+    static DateTimeFormatter formatter;
     public static Map<String, Object> readJsonTextFile(String path) {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -39,5 +29,12 @@ public class ReusableMethods {
             return null;
         }
     }
+
+    public static String getDateTime(String pattern) {
+        dateTime = ZonedDateTime.now();
+        formatter = DateTimeFormatter.ofPattern(pattern);
+        return dateTime.format(formatter);
+    }
+
 
 }

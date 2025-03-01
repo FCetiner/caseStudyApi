@@ -2,8 +2,10 @@ package runtest.account;
 
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import tests.account.RegisterClass;
+import utils.ReusableMethods;
 
 public class RegisterRun extends RegisterClass {
     private String email;
@@ -14,9 +16,11 @@ public class RegisterRun extends RegisterClass {
         email= "test"+Faker.instance().numerify("#####")+"@gmail.com";
         Response response=register(email);
         makeValidations(response);
+
+        //
         String refId=response.jsonPath().getString("result");
-        String code="11111";
-     //   Response responseRegisterConfirmation=registerConfirmation(refId,code);
+        String otpCode=ReusableMethods.getDateTime("mmHHdd");
+     //   Response responseRegisterConfirmation=registerConfirmation(refId,otpCode);
      //   makeValidationsOfIncorrectCase(responseRegisterConfirmation,500,"Code not valid");
     }
 

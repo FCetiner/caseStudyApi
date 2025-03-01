@@ -378,11 +378,23 @@ public class RestUtils extends BaseSetup {
         Response response=given()
                 .log().all()
                 .spec(spec)
+                .header("accept", "*/*")
+                .header("accept-language", "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7")
+                .header("access-control-request-headers", "skipauth")
+                .header("access-control-request-method", "GET")
+                .header("origin", "https://app.forceget.com")
+                .header("priority", "u=1, i")
+                .header("referer", "https://app.forceget.com/")
+                .header("sec-fetch-dest", "empty")
+                .header("sec-fetch-mode", "cors")
+                .header("sec-fetch-site", "same-site")
+                .header("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36")
                 .pathParams("pp1", pp1,"pp2",pp2)
                 .queryParams(q1,qp1,q2,qp2)
                 .contentType(JSON)
                 .when()
                 .get("/{pp1}/{pp2}");
+
         return response;
     }
     public static Response getGetRequestWithQueryResponse(String token, String pp1, String pp2, String pp3, String pp4, String query, String qp1){

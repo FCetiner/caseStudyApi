@@ -6,7 +6,7 @@ import org.testng.Assert;
 
 import static org.testng.Assert.assertEquals;
 
-public abstract class Validations extends ExtentManager {
+public abstract class Validations extends BaseSetup {
     protected   void makeValidations(Response response){
         response.then().statusCode(200);
         Assert.assertTrue(response.jsonPath().getBoolean("succeeded"));

@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.9.0</version>
+            <version>7.10.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -190,6 +190,19 @@
             <version>4.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.27.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-commandline</artifactId>
+            <version>2.30.0</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
     <build>
@@ -202,6 +215,16 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>TestSuites.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+                <configuration>
+                    <reportVersion>2.23.0</reportVersion>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory> <!-- Sonuçların kaydedileceği dizin -->
+                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory> <!-- Raporun oluşturulacağı dizin -->
                 </configuration>
             </plugin>
         </plugins>

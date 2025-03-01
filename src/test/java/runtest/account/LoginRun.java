@@ -1,39 +1,41 @@
 package runtest.account;
 
+import io.qameta.allure.*;
 import io.restassured.response.Response;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import tests.account.LoginClass;
 
-
+@Listeners({io.qameta.allure.testng.AllureTestNg.class})
+@Epic("Login Tests")
+@Feature("Login Functionality")
 public class LoginRun extends LoginClass {
 
-    @BeforeMethod
-    public void setUp() {
-        extentTest = extentReports.createTest("Login Test - Starting");
-    }
-
     @Test(description = "TC01 - Incorrect email", groups = "smoke")
+    @Description("Test Description: Login with incorrect email")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Login with incorrect credentials")
     public void loginTC01() {
-        extentTest.info("Starting test: Incorrect email");
-
+        Allure.step("Starting test: Incorrect email");
         String email = "testMail22@gmail.com";
         String password = "123456";
         Response response = login(email, password);
 
         try {
             makeValidationsOfIncorrectCase(response, 500, "Incorrect email or password. Please check your information and try again");
-            extentTest.pass("Test passed successfully");
+            Allure.step("Test passed successfully");
         } catch (AssertionError e) {
-            extentTest.fail("Test failed: " + e.getMessage());
+            Allure.step("Test failed: " + e.getMessage());
             throw e;
         }
     }
 
     @Test(description = "TC02 - Incorrect password", groups = "smoke")
+    @Description("Test Description: Login with incorrect password")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Login with incorrect credentials")
     public void loginTC02() {
-        extentTest.info("Starting test: Incorrect password");
+        Allure.step("Starting test: Incorrect password");
 
         String email = "test22@gmail.com";
         String password = "123456";
@@ -41,16 +43,19 @@ public class LoginRun extends LoginClass {
 
         try {
             makeValidationsOfIncorrectCase(response, 500, "Password verification failed");
-            extentTest.pass("Test passed successfully");
+            Allure.step("Test passed successfully");
         } catch (AssertionError e) {
-            extentTest.fail("Test failed: " + e.getMessage());
+            Allure.step("Test failed: " + e.getMessage());
             throw e;
         }
     }
 
     @Test(description = "TC03 - Empty email", groups = "smoke")
+    @Description("Test Description: Login with empty email")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Login with invalid inputs")
     public void loginTC03() {
-        extentTest.info("Starting test: Empty email");
+        Allure.step("Starting test: Empty email");
 
         String email = "";
         String password = "123456";
@@ -58,16 +63,19 @@ public class LoginRun extends LoginClass {
 
         try {
             makeValidationsOfIncorrectCase(response, 500, "Incorrect email or password. Please check your information and try again");
-            extentTest.pass("Test passed successfully");
+            Allure.step("Test passed successfully");
         } catch (AssertionError e) {
-            extentTest.fail("Test failed: " + e.getMessage());
+            Allure.step("Test failed: " + e.getMessage());
             throw e;
         }
     }
 
     @Test(description = "TC04 - Empty password", groups = "smoke")
+    @Description("Test Description: Login with empty password")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Login with invalid inputs")
     public void loginTC04() {
-        extentTest.info("Starting test: Empty password");
+        Allure.step("Starting test: Empty password");
 
         String email = "test@gmail.com";
         String password = "";
@@ -75,16 +83,19 @@ public class LoginRun extends LoginClass {
 
         try {
             makeValidationsOfIncorrectCase(response, 500, "Password verification failed");
-            extentTest.pass("Test passed successfully");
+            Allure.step("Test passed successfully");
         } catch (AssertionError e) {
-            extentTest.fail("Test failed: " + e.getMessage());
+            Allure.step("Test failed: " + e.getMessage());
             throw e;
         }
     }
 
     @Test(description = "TC05 - Positive login", groups = "smoke")
+    @Description("Test Description: Login with valid credentials")
+    @Severity(SeverityLevel.BLOCKER)
+    @Story("Login with valid credentials")
     public void loginTC05() {
-        extentTest.info("Starting test: Positive login");
+        Allure.step("Starting test: Positive login");
 
         String email = "fcetinerr@gmail.com";
         String password = "Test123++";
@@ -92,15 +103,15 @@ public class LoginRun extends LoginClass {
 
         try {
             makeValidations(response);
-            extentTest.pass("Test passed successfully");
+            Allure.step("Test passed successfully");
         } catch (AssertionError e) {
-            extentTest.fail("Test failed: " + e.getMessage());
+            Allure.step("Test failed: " + e.getMessage());
             throw e;
         }
     }
 
-    @AfterMethod
-    public void tearDown() {
-        extentReports.flush();
+    @Attachment(value = "Ekran Görüntüsü", type = "image/png")
+    public byte[] attachScreenshot() {
+        return new byte[0];
     }
 }
